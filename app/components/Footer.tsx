@@ -11,7 +11,7 @@ const Footer = () => {
   })("https://widget.replain.cc/dist/client.js");
 
   const [email, setEmail] = useState<string>("");
-  let token = "7049866842:AAFI_3ztxY3A_H6fjqV0m2vvQJyLNkkJEJk";
+  let token = process.env.BOTSECRET;
   let chat_id = "-1002104676003";
   const user = `
   Email: ${email}
