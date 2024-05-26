@@ -21,8 +21,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <Nav />
+          <div className=" max-w-6xl mx-auto shadow-2xl  px-4">{children}</div>
         </NextAuthProvider>
-        {children}
       </body>
     </html>
   );

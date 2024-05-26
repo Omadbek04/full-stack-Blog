@@ -1,4 +1,4 @@
-import mongoose, { models } from "mongoose";
+import mongoose, { Schema, models } from "mongoose";
 
 const blogSchema = new mongoose.Schema(
   {
@@ -6,7 +6,10 @@ const blogSchema = new mongoose.Schema(
     catName: String,
     postImg: String,
     postText: String,
-    authorId: String,
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: "Users",
+    },
   },
   { timestamps: true }
 );

@@ -3,7 +3,7 @@ import connectToDb from "./../../../utils/database";
 import { Blog } from "./../../../model/blog";
 
 export async function POST(req: NextRequest) {
-  const { title, postImg, postText, authorId, catName } = await req.json();
+  const { title, postImg, postText, creator, catName } = await req.json();
   try {
     await connectToDb();
 
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       title,
       postImg,
       postText,
-      authorId,
+      creator,
       catName,
     });
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     await connectToDb();
-    const res = await Blog.find();
+    const res = await Blog.find().populate("creator");
     return Response.json({ status: 200, message: res });
   } catch (error) {
     return Response.json({ status: 500, message: "Something went wrong" });
