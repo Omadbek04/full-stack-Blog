@@ -33,7 +33,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className={`${dark && "dark"} w-full  py-8 `}>
+      <nav className={`${dark && "dark"} w-full  py-8  max-w-6xl mx-auto  px-4`}>
         <div className=" max-w-6xl mx-auto flex justify-between items-center">
           <div className=" text-2xl">
             <Link href={"/"}>
@@ -42,11 +42,11 @@ const Nav = () => {
           </div>
 
           <ul className=" flex justify-between items-center gap-2 cursor-pointer">
-            <Link href={"/"} className=" text-[16px] leading-6 font-medium text-linkColor hover:text-black ">
+            <Link href={"/"} className=" text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
               Home
             </Link>
             {status == "authenticated" ? (
-              <Link href={"/dashboard"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black">
+              <Link href={"/dashboard"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
                 Dashboard
               </Link>
             ) : null}

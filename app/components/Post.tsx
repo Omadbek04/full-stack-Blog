@@ -11,9 +11,9 @@ interface PostItemProps {
 const PostItem = ({ image, category, title, id }: PostItemProps) => {
   return (
     <div>
-      <div className=" rounded-lg p-4 border">
+      <div className=" rounded-lg p-4 border dark:bg-cardDark  dark:border-darkBorder">
         <Image src={image} width={360} height={240} alt="post image" className=" w-full rounded-md object-cover mb-4" />
-        <button className=" px-3 py-1 rounded-md bg-indigo-100 text-indigo-500 text-sm mb-4">Technology</button>
+        <button className=" px-3 py-1 rounded-md bg-indigo-200 text-indigo-500 text-sm mb-4">Technology</button>
         <Link href={id} className="line-clamp-3 text-2xl leading-7 font-semibold mb-5">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quos.
         </Link>

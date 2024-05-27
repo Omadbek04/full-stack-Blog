@@ -16,15 +16,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
- 
-  
   return (
     <html lang="en">
       <body className={`${inter.className}  dark:bg-bgDark dark:text-white `}>
         <NextAuthProvider>
           <Nav />
-          <div className=" max-w-6xl mx-auto shadow-2xl  px-4">{children}</div>
+          <div>{children}</div>
         </NextAuthProvider>
       </body>
     </html>
