@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 const Footer = () => {
   window.replainSettings = { id: "c09cc678-e6ab-4044-8231-9d48d075e476" };
@@ -25,9 +26,10 @@ const Footer = () => {
     api.send();
     setEmail("");
   };
+
   return (
-    <footer className="mb-96 bg-footerBg dark:bg-footerDarkBg pt-[64px] pb-8">
-      <div className=" max-w-6xl mx-auto   px-4">
+    <footer className="bg-footerBg dark:bg-footerDarkBg pt-[64px] pb-8">
+      <div className=" max-w-6xl mx-auto px-4 border-b border-gray-400 pb-16">
         <div className="flex items-start justify-between">
           <div className=" flex flex-col max-w-[280px]">
             <h2 className=" text-[18px] font-semibold mb-3 ">About</h2>
@@ -75,6 +77,24 @@ const Footer = () => {
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Your email" className=" border rounded-md text-gray-500 dark:bg-footerDarkBg dark:border-darkBorder py-1 pl-3 outline-none text-[14px] w-full placeholder:text-[14px] placeholder:font-normal mb-2" required />
             <button className=" py-1 text-center bg-indigo-500 rounded-md text-white font-[16px] w-full outline-none hover:opacity-90">Subscribe</button>
           </form>
+        </div>
+      </div>
+      <div>
+        <div className=" max-w-6xl mx-auto px-4 py-8 flex items-center justify-between">
+          <p className=" dark:text-white font-medium">
+            &#169;JS Template <span className=" dark:text-gray-300">{new Date().getFullYear()}. All Rights Reserved.</span>{" "}
+          </p>
+          <div className=" flex gap-8">
+            <Link href={"/"} className="dark:text-gray-300 font-medium">
+              Terms of Use
+            </Link>
+            <Link href={"/"} className="dark:text-gray-300 font-medium">
+              Privacy Policy
+            </Link>
+            <Link href={"/"} className="dark:text-gray-300 font-medium">
+              Cookie Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
