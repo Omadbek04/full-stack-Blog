@@ -1,69 +1,73 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
   const { status } = useSession();
 
+  const [dark, setDark] = useState<boolean>(false);
+
+  useEffect(() => {
+    const darkModePreference = localStorage.getItem("dark-mode");
+    if (darkModePreference === "enabled") {
+      document.documentElement.classList.add("dark");
+      setDark(true);
+    }
+  }, []);
+
+  const handlerDarkMode = () => {
+    setDark((prev) => {
+      const newDarkMode = !prev;
+      if (newDarkMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("dark-mode", "enabled");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("dark-mode", "disabled");
+      }
+      return newDarkMode;
+    });
+  };
+
   return (
     <>
-      <nav className=" w-full shadow-md  py-4 mb-6">
+      <nav className={`${dark && "dark"} w-full  py-8 `}>
         <div className=" max-w-6xl mx-auto flex justify-between items-center">
           <div className=" text-2xl">
             <Link href={"/"}>
-              <Image src={"/other/Logo.png"} width={158} height={56} alt="Brand logo" loading="lazy" />
+              <Image src={`${!dark ? "/other/Logo.png" : "/other/Logo-dark.png"} `} width={158} height={56} alt="Brand logo" loading="lazy" />
             </Link>
           </div>
 
           <ul className=" flex justify-between items-center gap-2 cursor-pointer">
-            <Link href={"/dashboard"} className=" font-bold text-base">
-              About
-            </Link>
-            <Link href={"/dashboard"} className=" font-bold text-base">
-              Contact
+            <Link href={"/"} className=" text-[16px] leading-6 font-medium text-linkColor hover:text-black ">
+              Home
             </Link>
             {status == "authenticated" ? (
-              <Link href={"/dashboard"} className=" font-bold text-base">
-                dashboard
+              <Link href={"/dashboard"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black">
+                Dashboard
               </Link>
             ) : null}
           </ul>
 
-          <div className=" flex gap-2 items-center">
+          <div className=" flex gap-5 items-center">
             {status == "unauthenticated" ? (
-              <>
-                <button className=" rounded-md bg-stone-900 text-white outline-none py-4 px-6 font-bold flex gap-1 items-center" onClick={() => signIn("github")}>
-                  sing in
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "#fff" }}>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z"
-                    ></path>
-                  </svg>
-                </button>
-                <button className=" rounded-md bg-white text-black outline-none py-4 px-6 font-bold flex gap-1 items-center" onClick={() => signIn("google")}>
-                  sing in
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "red" }}>
-                    <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
-                  </svg>
-                </button>
-              </>
+              <Link className="text-linkColor border border-indigo-500 py-2 px-3 rounded-xl hover:bg-indigo-500 hover:text-white dark:text-indigo-500 dark:hover:text-white transition-colors duration-150" href={"/login"}>
+                Sign In
+              </Link>
             ) : (
-              <button className=" rounded-md bg-sky-600 text-white outline-none py-4 px-6 font-bold" onClick={() => signOut()}>
+              <button className="text-linkColor border border-indigo-500 py-2 px-3 rounded-xl hover:bg-indigo-500 hover:text-white dark:text-indigo-500 dark:hover:text-white transition-colors duration-150" onClick={() => signOut()}>
                 Sing Out
               </button>
             )}
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" className="sr-only peer" />
-            <div className=" after:flex after:items-center relative w-11 h-6 after:justify-center bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white afler after:content-[url('/other/sunny.svg')] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-             
-            </div>
-            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
-          </label>
+            <label className="inline-flex items-center cursor-pointer " onClick={handlerDarkMode}>
+              <input type="checkbox" value="" className="sr-only peer" checked={dark} onChange={handlerDarkMode} />
+              <div className=" after:flex after:items-center relative w-11 h-6 after:justify-center bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white afler after:content-[url('/other/sunny.svg')]  after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
+            </label>
           </div>
-
         </div>
       </nav>
     </>
