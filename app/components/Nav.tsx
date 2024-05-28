@@ -41,14 +41,19 @@ const Nav = () => {
             </Link>
           </div>
 
-          <ul className=" flex justify-between items-center gap-2 cursor-pointer">
+          <ul className=" flex justify-between items-center gap-3 cursor-pointer">
             <Link href={"/"} className=" text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
               Home
             </Link>
             {status == "authenticated" ? (
-              <Link href={"/dashboard"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
-                Dashboard
-              </Link>
+              <>
+                <Link href={"/dashboard"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
+                  Dashboard
+                </Link>
+                <Link href={"/create-blog"} className="text-[16px] leading-6 font-medium text-linkColor hover:text-black dark:text-white dark:hover:opacity-90">
+                  Create blog
+                </Link>
+              </>
             ) : null}
           </ul>
 
