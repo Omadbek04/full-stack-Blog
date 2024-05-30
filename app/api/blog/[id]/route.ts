@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const id = pathname.split("/").slice(-1)[0];
   try {
     await connectToDb();
-    const post = await Blog.findById(id).exec();
+    const post = await Blog.findById(id).populate("creator");
     return Response.json({ status: 200, message: post });
   } catch (error) {
     return Response.json({ status: 500, message: "blog not found" });

@@ -3,89 +3,25 @@ import React from "react";
 import PostItem from "./Post";
 import Footer from "./Footer";
 interface CardDataObj {
-  id: string;
+  _id: string;
   title: string;
-  username: string;
-  description: string;
-  image: string;
-  user: string;
+  postText: string;
+  postImg: string;
+  catName: string;
+  creator: {
+    name: string;
+    image: string;
+  };
+  createdAt: string;
 }
 
-const Hero = () => {
-  const CardData: CardDataObj[] = [
-    {
-      id: "1",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project1.png",
-      user: "/card/user1.png",
-    },
-    {
-      id: "2",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project2.png",
-      user: "/card/user2.png",
-    },
-    {
-      id: "3",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project3.png",
-      user: "/card/user3.png",
-    },
-    {
-      id: "4",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project4.png",
-      user: "/card/user4.png",
-    },
-    {
-      id: "5",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project5.png",
-      user: "/card/user5.png",
-    },
-    {
-      id: "6",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project6.png",
-      user: "/card/user1.png",
-    },
-    {
-      id: "7",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project7.png",
-      user: "/card/user2.png",
-    },
-    {
-      id: "8",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project8.png",
-      user: "/card/user3.png",
-    },
-    {
-      id: "9",
-      title: "Technologiy",
-      username: "JR",
-      description: "The Impact of Technology on the Workplace: How Technology is Changing",
-      image: "/card/project9.png",
-      user: "/card/user4.png",
-    },
-  ];
+const Hero = async () => {
+  const res = await fetch("http://localhost:3000/api/blog", { cache: "no-cache" });
+  const data = await res.json();
+  const message: CardDataObj[] = await data.message;
+
+  
+
   return (
     <>
       <div className=" max-w-6xl mx-auto  px-4">
@@ -105,14 +41,14 @@ const Hero = () => {
         <section className=" mb-24">
           <p className=" font-bold text-lg mb-3">Latest Post</p>
           <div className=" grid grid-cols-3 gap-4">
-            {CardData &&
-              CardData.map((item) => {
-                return <PostItem image={item.image} category={item.title} id={item.id} title={item.description} key={item.id} />;
+            {message &&
+              message?.map((item) => {
+                return <PostItem postImg={item.postImg} title={item.title} id={item._id} postText={item.postImg} catName={item.catName} createdAt={item.createdAt} creator={item.creator} key={item._id} />;
               })}
           </div>
         </section>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

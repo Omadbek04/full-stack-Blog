@@ -1,8 +1,10 @@
-import CreatePost from "../components/CreatePost";
+import Createpost from "../components/CreatePost";
+
+// import CreatePost from "../components/CreatePost";
 const CreateBlog = () => {
   return (
     <>
-      <CreatePost />
+      <Createpost />
     </>
   );
 };

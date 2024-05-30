@@ -1,3 +1,4 @@
+// export const dynamic = "force-dynamic";
 import { NextRequest } from "next/server";
 import connectToDb from "./../../../utils/database";
 import { Blog } from "./../../../model/blog";
@@ -5,7 +6,7 @@ import { Blog } from "./../../../model/blog";
 export async function POST(req: NextRequest) {
   const { title, postImg, postText, creator, catName } = await req.json();
   try {
-    await connectToDb();
+    await connectToDb();  
 
     const blog = new Blog({
       title,
